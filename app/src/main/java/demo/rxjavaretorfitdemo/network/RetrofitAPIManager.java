@@ -6,7 +6,7 @@ package demo.rxjavaretorfitdemo.network;
 import java.io.IOException;
 
 import demo.rxjavaretorfitdemo.BuildConfig;
-import demo.rxjavaretorfitdemo.network.api.WoNiuApi;
+import demo.rxjavaretorfitdemo.network.api.ApiService;
 import demo.rxjavaretorfitdemo.util.LogUtil;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -18,6 +18,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @author liuml.
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @time 2017/3/2 15:39
  */
 public class RetrofitAPIManager {
-    private WoNiuApi woNiuApi;
+    private ApiService woNiuApi;
 
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
@@ -41,6 +42,8 @@ public class RetrofitAPIManager {
         return SingletonHolder.INSTANCE;
     }
 
+    ScalarsConverterFactory scalarsConverterFactory = ScalarsConverterFactory.create();
+
     //构造方法私有
     private RetrofitAPIManager() {
         //构建Retrofit
@@ -49,18 +52,19 @@ public class RetrofitAPIManager {
                 .client(genericClient())
                 //配置服务器路径
                 .baseUrl(HttpUrls.switchs)
-                //配置转化库，默认是Gson(返回参数不规范 要不然可以直接转换成实体类)
-                .addConverterFactory(gsonConverterFactory)
+                .addConverterFactory(scalarsConverterFactory)//配置转化库 字符串类型 的
+//                //配置转化库，默认是Gson(返回参数不规范 要不然可以直接转换成实体类)
+//                .addConverterFactory(gsonConverterFactory)
                 //配置回调库，采用RxJava
                 .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .build();
     }
 
     //蜗牛api
-    public WoNiuApi getWoNiuApi() {
+    public ApiService getWoNiuApi() {
         //构建Retrofit
         if (woNiuApi == null) {
-            woNiuApi = retrofit.create(WoNiuApi.class);
+            woNiuApi = retrofit.create(ApiService.class);
         }
         return woNiuApi;
     }

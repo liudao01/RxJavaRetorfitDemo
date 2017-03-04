@@ -13,7 +13,6 @@ import rx.Subscription;
 public class BaseActivity extends Activity {
 
     //订阅器
-    protected BaseSubscriber subscription1;
     public Subscription subscription;
 
 

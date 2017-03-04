@@ -7,7 +7,7 @@ import demo.rxjavaretorfitdemo.base.BaseSubscriber;
 
 /**
  * @author liuml
- * @explain  自定义对话框
+ * @explain  自定义对话框订阅器
  * @time 2017/3/4 16:39
  */
 

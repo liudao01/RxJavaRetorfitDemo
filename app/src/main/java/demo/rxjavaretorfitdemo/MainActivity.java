@@ -100,15 +100,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void get() {
-        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().city("")
+//        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().city("")
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DialogSubscriber<String>(this) {//这里必须每次创建新的
+//                    @Override
+//                    protected void _onNext(String objects) {
+//                        tvResult.setText(objects.toString());
+//                    }
+//
+//
+//                    @Override
+//                    protected void _onError(int errorCode, String msg) {
+//                        tvResult.setText("错误 " + msg);
+//                    }
+//                });
+        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().tradelist()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DialogSubscriber<Object>(this) {//这里必须每次创建新的
+                .subscribe(new DialogSubscriber<String>(this) {//这里必须每次创建新的
                     @Override
-                    protected void _onNext(Object objects) {
+                    protected void _onNext(String objects) {
                         tvResult.setText(objects.toString());
                     }
-
 
                     @Override
                     protected void _onError(int errorCode, String msg) {

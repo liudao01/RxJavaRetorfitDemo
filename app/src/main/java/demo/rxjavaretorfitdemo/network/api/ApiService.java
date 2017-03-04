@@ -10,11 +10,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public interface WoNiuApi {
+public interface ApiService {
 
 
     @GET(HttpUrls.CITY)
-    Observable<Object> city(@Query("city") String city);
+    Observable<String> city(@Query("city") String city);
+
+
+    @GET(HttpUrls.TRADELIST)
+    Observable<String> tradelist();
 
 
     @GET("v1/customor/my/scan/list")
