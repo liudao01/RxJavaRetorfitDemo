@@ -2,6 +2,7 @@
 
 package demo.rxjavaretorfitdemo.network.api;
 
+import demo.rxjavaretorfitdemo.network.HttpUrls;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -10,7 +11,9 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 public interface WoNiuApi {
-    @GET("v2/truck/indexlist")
+
+
+    @GET(HttpUrls.CITY)
     Observable<Object> city(@Query("city") String city);
 
 

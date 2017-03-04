@@ -1,7 +1,9 @@
 package demo.rxjavaretorfitdemo.network;
 
 /**
- * Created by Administrator on 2016/9/5.
+ * @explain 服务器错误码
+ * @author liuml.
+ * @time 2017/3/4 17:28
  */
 public class ServerException extends Exception {
 
