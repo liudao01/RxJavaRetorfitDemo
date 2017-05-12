@@ -17,8 +17,6 @@ public interface ApiService {
     Observable<String> city(@Query("city") String city);
 
 
-
-
     @GET("v1/customor/my/scan/list")
     Observable<String> list(@Query("id") String id,
                             @Query("page") String page,
@@ -39,7 +37,12 @@ public interface ApiService {
                              @Field("cname") String cname,
                              @Field("tel") String tel,
                              @Field("iscoming") String iscoming,
-                             @Field("udid") String udid)
-            ;
+                             @Field("udid") String udid);
+
+    @FormUrlEncoded
+    @POST(HttpUrls.fanyi)
+    Observable<String> fanyi(@Field("showapi_appid") String showapi_appid,
+                             @Field("showapi_sign") String showapi_sign,
+                             @Field("q") String cname);
 
 }

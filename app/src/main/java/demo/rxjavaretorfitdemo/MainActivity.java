@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Observer<Object> observerLogin = new Observer() {
         @Override
         public void onCompleted() {
+
         }
 
         @Override
@@ -96,11 +97,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void post() {
+        String secret = "56a1c454a9b946e3a70a1069e21d038c";
+        String appid = "38002";
         subscription = RetrofitAPIManager.getInstance().getWoNiuApi()
-                .login("8888", "123456", "", "18001184827", "", "99000709771573")
+                .fanyi(appid, secret, "这是翻译的英文")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observerLogin);
+                .subscribe(new DialogSubscriber<String>(this) {//这里必须每次创建新的
+
+                    @Override
+                    public void onNext(String s) {
+                        super.onNext(s);
+                        tvResult.setText(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        tvResult.setText("错误 " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
+                });
     }
 
     private void get() {

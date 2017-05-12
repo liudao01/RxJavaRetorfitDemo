@@ -12,6 +12,7 @@ public class HttpUrls {
     public static String switchs = "http://route.showapi.com/";//外网
     public final static String CITY = "v2/truck/indexlist/";//测试城市
     public final static String xiaohua = "341-1";//笑话
+    public final static String fanyi = "32-9";//翻译
 
 
 }
