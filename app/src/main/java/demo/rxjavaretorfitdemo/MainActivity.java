@@ -8,6 +8,7 @@ import android.widget.TextView;
 import demo.rxjavaretorfitdemo.base.BaseActivity;
 import demo.rxjavaretorfitdemo.network.DialogSubscriber;
 import demo.rxjavaretorfitdemo.network.RetrofitAPIManager;
+import demo.rxjavaretorfitdemo.util.SystemUtils;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -15,8 +16,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * @explain  基本的get post 请求
  * @author liuml.
+ * @explain 基本的get post 请求
  * @time 2017/3/4 17:10
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -24,6 +25,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btPost;
     private TextView tvResult;
 
+
+    private String secret = "56a1c454a9b946e3a70a1069e21d038c";
+    private String appid = "38002";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,36 +104,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void get() {
-//        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().city("")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new DialogSubscriber<String>(this) {//这里必须每次创建新的
-//                    @Override
-//                    protected void _onNext(String objects) {
-//                        tvResult.setText(objects.toString());
-//                    }
-//
-//
-//                    @Override
-//                    protected void _onError(int errorCode, String msg) {
-//                        tvResult.setText("错误 " + msg);
-//                    }
-//                });
-        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().tradelist()
+//        time	String		2015-07-10	否	从这个时间以来最新的笑话.
+//        格式：yyyy-MM-dd
+//        page	String	1	1	否	第几页。
+//        maxResult	String	20	20	否	每页最大记录数。其值为1至50。
+        String secret = "56a1c454a9b946e3a70a1069e21d038c";
+        String appid = "38002";
+        String time = SystemUtils.getTimeDay();
+        String page = "1";
+        String maxResult = "30";
+        subscription = RetrofitAPIManager.getInstance().getWoNiuApi().xiaohua(appid, secret, time, page, maxResult)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DialogSubscriber<String>(this) {//这里必须每次创建新的
+
                     @Override
-                    protected void _onNext(String objects) {
-                        tvResult.setText(objects.toString());
+                    public void onNext(String s) {
+                        super.onNext(s);
+                        tvResult.setText(s);
                     }
 
                     @Override
-                    protected void _onError(int errorCode, String msg) {
-                        tvResult.setText("错误 " + msg);
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        tvResult.setText("错误 " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
                     }
                 });
-//              .subscribe(observer1);
     }
 
 

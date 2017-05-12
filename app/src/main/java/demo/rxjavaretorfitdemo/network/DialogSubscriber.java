@@ -7,7 +7,7 @@ import demo.rxjavaretorfitdemo.base.BaseSubscriber;
 
 /**
  * @author liuml
- * @explain  自定义对话框订阅器
+ * @explain 自定义对话框订阅器
  * @time 2017/3/4 16:39
  */
 
@@ -15,6 +15,7 @@ public abstract class DialogSubscriber<T> extends BaseSubscriber<T> {
 
     ProgressDialog loadingDialog;
     private String loadingMsg;
+    private boolean isShowLoading = true;
 
     public DialogSubscriber(Context mContext) {
         super(mContext);
@@ -26,6 +27,13 @@ public abstract class DialogSubscriber<T> extends BaseSubscriber<T> {
         this.loadingMsg = loadingMsg;
     }
 
+    /**
+     * @param isShowLoading 是否显示对话框
+     */
+    public DialogSubscriber(Context context, boolean isShowLoading) {
+        super(context);
+        this.isShowLoading = isShowLoading;
+    }
 
 
     protected void showDialog() {
@@ -45,17 +53,25 @@ public abstract class DialogSubscriber<T> extends BaseSubscriber<T> {
     @Override
     public void onStart() {
         super.onStart();
-        showDialog();
+        if (isShowLoading) {
+            showDialog();
+        }
     }
+
 
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        loadingDialog.cancel();
+        if (isShowLoading) {
+            dismissDialog();
+        }
     }
+
 
     @Override
     public void onCompleted() {
-        dismissDialog();
+        if (isShowLoading) {
+            dismissDialog();
+        }
     }
 }

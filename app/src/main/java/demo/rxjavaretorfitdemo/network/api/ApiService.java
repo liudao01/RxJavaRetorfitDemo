@@ -17,24 +17,29 @@ public interface ApiService {
     Observable<String> city(@Query("city") String city);
 
 
-    @GET(HttpUrls.TRADELIST)
-    Observable<String> tradelist();
 
 
     @GET("v1/customor/my/scan/list")
-    Observable<Object> list(@Query("id") String id,
+    Observable<String> list(@Query("id") String id,
                             @Query("page") String page,
                             @Query("page.size") String size);
+
+    @GET(HttpUrls.xiaohua)
+    Observable<String> xiaohua(@Query("showapi_appid") String showapi_appid,
+                               @Query("showapi_sign") String showapi_sign,
+                               @Query("time") String time,
+                               @Query("page") String page,
+                               @Query("maxResult") String maxResult);
 
 
     @FormUrlEncoded
     @POST("v1/userLogin/newLogin")
-    Observable<Object> login(@Field("code") String code,
+    Observable<String> login(@Field("code") String code,
                              @Field("invitecode") String pwd,
                              @Field("cname") String cname,
                              @Field("tel") String tel,
                              @Field("iscoming") String iscoming,
                              @Field("udid") String udid)
-    ;
+            ;
 
 }

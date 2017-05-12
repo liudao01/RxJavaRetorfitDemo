@@ -60,7 +60,7 @@ public class RetrofitAPIManager {
                 .build();
     }
 
-    //蜗牛api
+    //api
     public ApiService getWoNiuApi() {
         //构建Retrofit
         if (woNiuApi == null) {
