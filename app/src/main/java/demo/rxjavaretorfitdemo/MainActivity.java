@@ -1,8 +1,12 @@
 package demo.rxjavaretorfitdemo;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import demo.rxjavaretorfitdemo.base.BaseActivity;
@@ -25,10 +29,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btPost;
     private TextView tvResult;
 
+    private LinearLayout llTest;
+
 
     private String secret = "56a1c454a9b946e3a70a1069e21d038c";
     private String appid = "38002";
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +46,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         btPost.setOnClickListener(this);
         btGet.setOnClickListener(this);
+        llTest = (LinearLayout) findViewById(R.id.ll_test);
+        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams1.gravity = Gravity.RIGHT;
+        layoutParams1.setMarginEnd(1);
+        for (int i = 0; i < 5; i++) {
+            TextView textView = new TextView(this);
+            textView.setText("test " + i);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            textView.setTextSize(16);
+            layoutParams.setMargins(0,20,20,0);
+            layoutParams.setMarginEnd(1);
+            layoutParams.gravity = Gravity.RIGHT;
+            textView.setLayoutParams(layoutParams);
 
-
+            llTest.addView(textView);
+        }
+        llTest.setLayoutParams(layoutParams1);
     }
 
     Observer<Object> observer1 = new Observer() {
