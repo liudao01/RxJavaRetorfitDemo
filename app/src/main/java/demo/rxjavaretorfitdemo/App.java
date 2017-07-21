@@ -8,6 +8,7 @@ import android.content.Context;
 public class App extends Application {
     private static App INSTANCE;
 
+
     public static App getInstance() {
         return INSTANCE;
     }
