@@ -16,6 +16,7 @@ public class App extends Application {
         return INSTANCE;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
